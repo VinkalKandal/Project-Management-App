@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth"
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const navigate = useNavigate();
+  const {login} = useAuth()
 
   const handleRegister = async () => {
     if (password !== confirm) {
@@ -22,7 +24,7 @@ const Register = () => {
 
       const data = await res.json();
       if (res.ok) {
-        localStorage.setItem("token", data.token);
+        login(data.token); // ⬅️ context handles auth state
         navigate("/dashboard");
       } else {
         alert("Registration failed: " + data.error);

@@ -1,24 +1,32 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    const res = await fetch("https://reqres.in/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-    const data = await res.json();
-    if (res.ok) {
-      localStorage.setItem("token", data.token);
-      navigate("/dashboard");
-    } else {
-      alert("Invalid credentials");
+    try{
+      const res = await fetch("https://reqres.in/api/login", {
+        method: "POST",
+        headers: { "x-api-key":"reqres-free-v1","Content-Type": "application/json" },
+        body: JSON.stringify({ email:"eve.holt@reqres.in", password:'cityslicka' }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        login(data.token); // when login succeeds
+        navigate("/dashboard");
+      } else {
+        alert("Login failed");
+        console.log("Login failed", data.error);
+      }
+    } catch(err){
+      alert("Something went wrong");
     }
+    
   };
 
   return (
