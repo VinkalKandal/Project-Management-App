@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import Dashboard from "./pages/Dashboard";
+import PrivateRoute from './routes/PrivateRoutes';
 import './App.css'
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard" element={ <PrivateRoute><Dashboard /></PrivateRoute>} />
     </Routes>
     </>
   )

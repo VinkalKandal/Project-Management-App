@@ -52,7 +52,7 @@ const Login = () => {
       >
         Login
       </button>
-     <p>Not registered yet? <a href="/register">Register</a></p>
+      <p>Not registered yet? <a href="/register">Register</a></p>
     </div>
   );
 };
