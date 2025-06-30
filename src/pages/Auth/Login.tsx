@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import { loginUser } from "../../api/auth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -10,21 +11,11 @@ const Login = () => {
 
   const handleLogin = async () => {
     try{
-      const res = await fetch("https://reqres.in/api/login", {
-        method: "POST",
-        headers: { "x-api-key":"reqres-free-v1","Content-Type": "application/json" },
-        body: JSON.stringify({ email:"eve.holt@reqres.in", password:'cityslicka' }),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        login(data.token); // when login succeeds
-        navigate("/dashboard");
-      } else {
-        alert("Login failed");
-        console.log("Login failed", data.error);
-      }
+      const {token} = await loginUser(email , password);
+      login(token);
+      navigate('/dashboard')
     } catch(err){
-      alert("Something went wrong");
+      alert("Login Failed");
     }
     
   };

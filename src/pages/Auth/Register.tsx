@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth"
+import {registerUser} from "../../api/auth"
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -16,19 +17,9 @@ const Register = () => {
     }
 
     try {
-      const res = await fetch("https://reqres.in/api/register", {
-        method: "POST",
-        headers: { "x-api-key":"reqres-free-v1", "Content-Type": "application/json" },
-        body: JSON.stringify({ email: "eve.holt@reqres.in", password:"pistol" }),
-      });
-
-      const data = await res.json();
-      if (res.ok) {
-        login(data.token); // ⬅️ context handles auth state
-        navigate("/dashboard");
-      } else {
-        alert("Registration failed: " + data.error);
-      }
+      const {token} = await registerUser(email, password)
+      login(token); // ⬅️ context handles auth state
+      navigate("/dashboard");
     } catch (err) {
       alert("Something went wrong");
     }
