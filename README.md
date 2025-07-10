@@ -55,3 +55,7 @@ export default tseslint.config({
 # Project-Management-App
 To do list:
 - Add dynamic query parameters to APIs (eg: page, delay ...) 
+- Simulate/mock the /projects endpoint.
+- Add types/interfaces for future APIs.
+-  Use react-query for auto-caching, background refetch, stale data policies
+-  persistent cache using sessionStorage or IndexedDB 

@@ -4,6 +4,8 @@ import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import Dashboard from "./pages/Dashboard";
 import PrivateRoute from './routes/PrivateRoutes';
+import ProjectDetails from "./pages/ProjectDetails";
+
 import './App.css'
 
 function App() {
@@ -14,6 +16,7 @@ function App() {
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/dashboard" element={ <PrivateRoute><Dashboard /></PrivateRoute>} />
+      <Route path="/projects/:id" element={<PrivateRoute><ProjectDetails/></PrivateRoute>} />
     </Routes>
     </>
   )

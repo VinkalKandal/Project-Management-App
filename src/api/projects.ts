@@ -21,3 +21,13 @@ export const getProjects = async(page: number): Promise<ProjectApiResponse>=>{
     const response = await axios.get<ProjectApiResponse>(`/projects?page=${page}`); //replace with real API later
     return response.data
 }
+
+export const createProject = async(project:{name: string; description:string})=>{
+    const response = await axios.post(`/projects`); //replace with real API later
+    return response.data
+}
+
+export const getProjectById = async (id: string) => {
+  const response = await axios.get(`/projects/${id}`);
+  return response.data;
+};
